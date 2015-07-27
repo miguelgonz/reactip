@@ -64,7 +64,6 @@ var TIP = React.createClass({
     var preplayClass = this.state.hasPlaybackStarted ? "is-hidden" : "is-visible";
     var episodes = this.props.data.episodes;
     var imgUrl = "http://ichef.bbci.co.uk/images/ic/608x342/" + this.props.data.pid + ".jpg"
-    console.log(imgUrl);
     return (
       <div className="tip">
         <div className="tip__journey">
@@ -80,23 +79,6 @@ var TIP = React.createClass({
   }
 });
     
-var data = {
-  pid: 'p02x2byh',
-  title: 'Eastenders',
-  subtitle: '19/4/2015',
-  guidance: 'This programme contains explicit sex scenes',
-  episodes: [
-    {
-      title: 'Some episode',
-      subtitle: 'Some subtitle'
-    },
-    {
-      title: 'Some episode',
-      subtitle: 'Some subtitle'
-    }
-  ]
-};
-
 React.render(
   (
     <TIP data={data}/>
