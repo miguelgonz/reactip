@@ -26,26 +26,39 @@ var PlayButton = React.createClass({
     
 var Carousel = React.createClass({
   handleLeft: function () {
-    console.log('go left');
+    var newScroll = 0;
+    if (this.state.scroll < 50) {
+        newScroll = this.state.scroll + 50;
+    }
+    this.setState({scroll: newScroll});
   },
   handleRight: function () {
-    console.log('go right');
+    var newScroll = this.state.scroll - 50;
+    this.setState({scroll: newScroll});
+  },
+  getInitialState: function () {
+      return {
+          scroll: 0
+      }
   },
   render: function () {
     var episodes = this.props.episodes.map(function (ep) {
       return (
-        <div className="episode">
-          <div className="episode__image"><img src="http://fillmurray.com/200/120"/></div>
+        <div className="carousel__episode">
+          <div className="episode__image"><img src="http://fillmurray.com/224/127"/></div>
           <div className="episode__title">{ep.title}</div>
           <div className="episode__subtitle">{ep.subtitle}</div>
         </div>
       )
-    });
+    }),
+    scroll = this.state.scroll;
     return (
       <div className="carousel">
-        <div className="episodes">{episodes}</div>
-        <div onClick={this.handleLeft}>↜</div>
-        <div onClick={this.handleRight}>↝</div>
+        <div className="carousel__episodes" style={{marginLeft: scroll + 'px'}}>{episodes}</div>
+        <div className="carousel__buttons">
+            <div onClick={this.handleLeft}>↜</div>
+            <div onClick={this.handleRight}>↝</div>
+        </div>
       </div>
     );
   }
