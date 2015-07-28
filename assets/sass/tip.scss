@@ -63,15 +63,16 @@ body {
 
 
 .carousel {
-    width: 9000px;
 
     &__episodes {
         -webkit-transition: .5s margin-left;
         margin-left: 0;
+        width: 9000px;
     }
 
     &__episode {
         float: left;
+        margin: 8px;
     }
 
     &__buttons {
@@ -82,6 +83,15 @@ body {
         color: white;
         background: black;
         padding: 0 8px;
+    }
+}
+
+.episode {
+    &__title {
+        margin-top: -2.5em;
+    }
+    &__subtitle {
+        font-size: 12px;
     }
 }
 

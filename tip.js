@@ -25,27 +25,39 @@ var PlayButton = React.createClass({
 });
     
 var Carousel = React.createClass({
+  getFirstHiddenOffset: function (backwards) {
+      var offset = -1, $container = $(this.refs.container.getDOMNode()),
+        containerMargin = parseInt($container.css('margin-left')),
+        containerWidth = $container.outerWidth();
+      return this.state.scroll + (backwards ? 1 : -1) * containerWidth;
+  },
+  getScrollWidth: function () {
+      var mainWidth = this.refs.container.getDOMNode().scrollWidth;
+      return mainWidth;
+  },
   handleLeft: function () {
-    var newScroll = 0;
-    if (this.state.scroll < 50) {
-        newScroll = this.state.scroll + 50;
-    }
+    var offset = -1, $container = $(this.refs.container.getDOMNode()),
+        containerMargin = parseInt($container.css('margin-left')),
+        containerWidth = $container.outerWidth();
+
+    var newScroll = this.state.scroll + (backwards ? 1 : -1) * containerWidth;
     this.setState({scroll: newScroll});
   },
   handleRight: function () {
-    var newScroll = this.state.scroll - 50;
+    var newScroll = this.getFirstHiddenOffset(false);
     this.setState({scroll: newScroll});
+    console.log(this.state);
   },
   getInitialState: function () {
       return {
-          scroll: 0
+          scroll: 0,
       }
   },
   render: function () {
     var episodes = this.props.episodes.map(function (ep) {
       return (
         <div className="carousel__episode">
-          <div className="episode__image"><img src="http://fillmurray.com/224/127"/></div>
+          <div className="episode__image"><img src="http://fillmurray.com/164/80"/></div>
           <div className="episode__title">{ep.title}</div>
           <div className="episode__subtitle">{ep.subtitle}</div>
         </div>
@@ -53,7 +65,7 @@ var Carousel = React.createClass({
     }),
     scroll = this.state.scroll;
     return (
-      <div className="carousel">
+      <div ref="container" className="carousel">
         <div className="carousel__episodes" style={{marginLeft: scroll + 'px'}}>{episodes}</div>
         <div className="carousel__buttons">
             <div onClick={this.handleLeft}>↜</div>
